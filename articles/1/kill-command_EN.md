@@ -6,7 +6,7 @@
 
 _A comprehensive guide to `kill` command, to demystify extraneous things said in the programming world._
 
-> Some time ago, I heard someone say that "the `kill` command is to kill a
+> Some time ago, I heard someone tell that "the `kill` command is to kill a
 process". That is not technically correct. Strictly talking, the `kill` command
 is to _send a signal to a process_.  This is a frequent error I've heard from 
 novice programmers, or people that only touch topics superficially. But, from
