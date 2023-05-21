@@ -6,11 +6,13 @@
 
 _A comprehensive guide to `kill` command, to demystify extraneous things said in the programming world._
 
-> Some time ago, I heard someone tell that "the `kill` command is to kill a
-process". That is not technically correct. Strictly talking, the `kill` command
-is to _send a signal to a process_.  This is a frequent error I've heard from 
-novice programmers, or people that only touch topics superficially. But, from
-the Linux help:
+> Some time ago, I heard someone say that "the `kill` command is to kill a
+>  process" (...wtf?). That is not technically correct. Strictly talking, the
+>  `kill` command is to _send a signal to a process_.  This is a frequent error
+>  I've heard from novice programmers, or people that only touch topics
+>  superficially.
+
+But, let's go to an authoritative source, directly from the Linux help:
 
 ```bash
 $ kill --help
@@ -50,15 +52,10 @@ among others.
 `Signaling` is a typical and fast communication mechanism between processes. We
 deliver a signal to a process when we expect such a process to do some specific
 action. These actions can be, for example, pausing/resuming the process
-(`SIGSTOP`, `SIGCONT`), or terminating it [either in a _nice_ or rude way]
-(`SIGTERM`,`SIGKILL`). Some other behaviours are cumbersome, for example, for a
-parent process to be aware of the termination of one of its children
-(`SIGCHILD`), or for asking a process to perform some predefined user-specific
-action (`SIGUSR1`). See the complete table of common signal's behaviours on the
-[_computerhope_&nbsp;](https://www.computerhope.com/unix/signals.htm) article.
+(`SIGSTOP`, `SIGCONT`), or terminating it, either in a _nice_ or rude way
+(`SIGTERM`,`SIGKILL`). Some other behaviours can be less familiar, for example, for a parent process to be aware of the termination of one of its children (`SIGCHILD`), or for asking a process to perform some predefined user-specific action (`SIGUSR1`). See the complete table of common signal's behaviours on the [_computerhope_&nbsp;](https://www.computerhope.com/unix/signals.htm) article.
 
-It is worth mentioning that _signals_ are crucial in any well-designed system which 
-is intended to work over a multi-process architecture.
+It is worth mentioning that _signals_ are crucial in any well-designed system which is intended to work over a multi-process architecture.
 
 You can see a list of all available signals on your system, by typing
 
@@ -119,17 +116,16 @@ $ kill 15 <pid>
 
 ## A first experiment
 
-Suppose that we have a "_lazy_" process which does not do another thing than sleeping for
-a while. Example:
+Suppose that we have a "_lazy_" process which does not do another thing than sleeping for a while. Example:
 
-```python
+```c
 """FILE: lazy.py
 """
 from time import sleep
 import os
 
 print('I\'m a very lazy process -.). Please, don\'t disturb ...')
-print(f'My PID = {os.getpid()}')
+print(f"My PID = {os.getpid()}")
 sleep(10)
 print('Lazy program says ... Bye !\n')
 ```
@@ -200,14 +196,14 @@ If you just want to pause/resume a process, you can go further into the concept 
 background | put the process in paused state
 foreground | awake the process and enable it for interacting with keyboard
 
-We can move a process to the background (pausing) or foreground (resuming) by using, respectively, the commands `fg` and `bg`. Example
+We can move a process to the background (pausing) or to the foreground (resuming) by using, respectively, the commands `fg` and `bg`. Example
 
 ```bash
 fg %1    .... puts the job ID=1 into background state (stop)
 bg %1    .... puts the job ID=1 into foreground state (resume)
 ```
 
-You can switch a process back and forth between background and foreground 
+You can switch a process back and forth between the background and foreground 
 as many times as you want, while the process is still alive and being
 owned by that terminal.
 
