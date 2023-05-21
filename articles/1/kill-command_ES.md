@@ -5,16 +5,17 @@
 ## Escrito por: _Yoel Monsalve_
 _Esta es la versión en español del artículo intitulado "The kill command", del mismo autor._
 
-_Una guía comprensible del comando `kill`, para desmitificar cosas extrañas dichas en el mundo de la programación._
+_Una guía comprensible del comando `kill`, para desmitificar cosas extrañas que se dicen en el mundo de la programación._
 
->Hace algún tiempo, escuché alguien decir que "el comando `kill` es para matar un proceso". Bueno, eso no es técnicamente correcto. Estrictamente hablando, el comando `kill` es para _enviar una señal a un proceso_. Esto es un error frecuente que he escuchado de programadores novatos, o la gente que sólo toca los temas superficialmente. Pero, vamos a la ayuda/documentación  de Linux:
+>Hace algún tiempo, escuché alguien decir que "el comando `kill` es para matar un proceso". Bueno, eso no es técnicamente correcto. Estrictamente hablando, el comando `kill` es para _enviar una señal a un proceso_. Esto es un error frecuente que he escuchado de programadores novatos, o la gente que sólo toca los temas superficialmente. 
+
+Pero, vamos a una fuente autoritaria, desde la ayuda/documentación de Linux:
 
 ```bash
 $ kill --help
 
 kill: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sigspec]
-```
-```
+
     Send a signal to a job.
      
     Send the processes identified by PID or JOBSPEC the signal named by
@@ -34,7 +35,6 @@ kill: kill [-s sigspec | -n signum | -sigspec] pid | jobspec ... or kill -l [sig
     
     Exit Status:
     Returns success unless an invalid option is given or an error occurs.
-
 ```
 
 Así que la respuesta es muy clara: 'Terminar/matar' un proceso es solo una de las muchas cosas que se pueden hacer a través de este comando. Las "señales" (`signals`) son un tema fascinante, y el lector interesado puede consultar este [manpage](https://man7.org/linux/man-pages/man2/signal.2.html), o este artículo de [_computerhope_&nbsp;](https://www.computerhope.com/unix/signals.htm), entre otros.
@@ -63,13 +63,13 @@ $ kill -l
 63) SIGRTMAX-1	64) SIGRTMAX	
 ```
 
-La sintaxis para enviar una se~al determinada a un proceso, digamos la señal para pedir una terminación amigable `SIGTERM`, es:
+La sintaxis para enviar una señal determinada a un proceso, digamos la señal para pedir una terminación amigable `SIGTERM`, es:
 
 ```bash
 $ kill -s SIGTERM <pid>
 ```
 
-done `<pid` es el ID de proceso, un entero único que sirve como identificador de dicho proceso. Cada proceso tiene un ID que es automáticamente asignado por el sistema operativo (y no se puede/debe cambiar). Hay algunos comandos que pueden ser útiles para averiguar el PID de un programa, como
+done `<pid>` es el ID de proceso, un entero único que sirve como identificador de dicho proceso. Cada proceso tiene un ID que es automáticamente asignado por el sistema operativo (y no se puede/debe cambiar). Hay algunos comandos que pueden ser útiles para averiguar el PID de un programa, como
 [`pgrep`](https://www.man7.org/linux/man-pages/man1/pgrep.1.html), o
 [`ps`](https://www.man7.org/linux/man-pages/man1/ps.1.html). Sin embargo, esto sería suficiente material para un artículo completo, y no será cubierto aquí.
 
@@ -90,6 +90,7 @@ o, usando el _numero_ de señal en lugar del nemónico para la misma (**NO recom
 $ kill -n 15 <pid>
 ```
 
+o
 ```bash
 $ kill 15 <pid>
 ```
@@ -132,9 +133,9 @@ $ Lazy program says ... Bye !
 Luego de retomar el proceso, este termina su ciclo de espera y luego de ello imprime un mensaje de despedida y termina.
 
 Este proceso de detención de procesos puede ser usado, por ejemplo, para tomar
-'capturas' a programas que dirigen su salida a la consola (y de este modo observar el flujo de actividades del proceso, imprimir valores de variables, etc). Es realmente un mecanismo muy útil, aunque rudimentario, de hacer _debugging_ de programas.
+'capturas' a programas que dirigen su salida a la consola (y de este modo observar el flujo de actividades del proceso, imprimir valores de variables, etc). Es realmente un mecanismo muy útil, aunque rudimentario, de hacer _debug_ de programas.
 
-## Empezando a familiarizarse con _jobs_ (tareas)
+## Empezando a usar _jobs_ (tareas)
 
 Trabajar en terminales de sistema UNIX puede volverse productivo cuando empezamos a usar los _jobs_, o tareas. Un _job_ es un proceso corriendo bajo una terminal. Posiblemente usted notó el mensaje particular
 
@@ -182,7 +183,7 @@ bg %1    .... pone el job ID=1 en estado foreground (resume)
 
 Usted puede alternar un proceso entre el segundo plano y el primer plano tantas veces como quiera, mientras el proceso esté aún vivo y siendo manejado por dicha terminal.
 
-Presionar `CTRL + Z` envía implíciamente una señal `STOP` a un proceso, de modo que este es de hecho puesto en estado background. Para restaurarlo, use `fg`. Puede moverlo de nuevo al background con `bg`, luego de nuevo al foreground con `fg`, ... etc.
+Presionar `CTRL + Z` envía implícitamente una señal `STOP` a un proceso, de modo que este es de hecho puesto en estado background. Para restaurarlo, use `fg`. Puede moverlo de nuevo al background con `bg`, luego de nuevo al foreground con `fg`, ... etc.
 
 ```bash
 $ python lazy.py 

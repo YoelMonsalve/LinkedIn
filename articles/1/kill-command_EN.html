@@ -1065,7 +1065,7 @@ body .markdown-body
 .highlight .vi{color:teal}
 .highlight .il{color:#009999}
 .highlight .gc{color:#999;background-color:#EAF2F5}
-</style><title>kill-command.2</title></head><body><article class="markdown-body"><!-- title: The Linux kill command -->
+</style><title>kill-command_EN</title></head><body><article class="markdown-body"><!-- title: The Linux kill command -->
 
 <!-- author: Yoel Monsalve -->
 
@@ -1074,11 +1074,12 @@ body .markdown-body
 <p><em>A comprehensive guide to <code>kill</code> command, to demystify extraneous things said in the programming world.</em></p>
 <blockquote>
 <p>Some time ago, I heard someone say that &ldquo;the <code>kill</code> command is to kill a
-process&rdquo;. That is not technically correct. Strictly talking, the <code>kill</code> command
-is to <em>send a signal to a process</em>.  This is a frequent error I&rsquo;ve heard from 
-novice programmers, or people that only touch topics superficially. But, from
-the Linux help:</p>
+ process&rdquo; (&hellip;wtf?). That is not technically correct. Strictly talking, the
+ <code>kill</code> command is to <em>send a signal to a process</em>.  This is a frequent error
+ I&rsquo;ve heard from novice programmers, or people that only touch topics
+ superficially.</p>
 </blockquote>
+<p>But, let&rsquo;s go to an authoritative source, directly from the Linux help:</p>
 <p><div class="highlight"><pre><span class="nv">$ </span><span class="nb">kill</span> --help
 
 <span class="nb">kill</span>: <span class="nb">kill</span> <span class="o">[</span>-s sigspec <span class="p">|</span> -n signum <span class="p">|</span> -sigspec<span class="o">]</span> pid <span class="p">|</span> jobspec ... or <span class="nb">kill</span> -l <span class="o">[</span>sigspec<span class="o">]</span>
@@ -1112,14 +1113,9 @@ among others. </p>
 <p><code>Signaling</code> is a typical and fast communication mechanism between processes. We
 deliver a signal to a process when we expect such a process to do some specific
 action. These actions can be, for example, pausing/resuming the process
-(<code>SIGSTOP</code>, <code>SIGCONT</code>), or terminating it [either in a <em>nice</em> or rude way]
-(<code>SIGTERM</code>,<code>SIGKILL</code>). Some other behaviours are cumbersome, for example, for a
-parent process to be aware of the termination of one of its children
-(<code>SIGCHILD</code>), or for asking a process to perform some predefined user-specific
-action (<code>SIGUSR1</code>). See the complete table of common signal&rsquo;s behaviours on the
-<a href="https://www.computerhope.com/unix/signals.htm"><em>computerhope</em>&nbsp;</a> article.</p>
-<p>It is worth mentioning that <em>signals</em> are crucial in any well-designed system which 
-is intended to work over a multi-process architecture.</p>
+(<code>SIGSTOP</code>, <code>SIGCONT</code>), or terminating it, either in a <em>nice</em> or rude way
+(<code>SIGTERM</code>,<code>SIGKILL</code>). Some other behaviours can be less familiar, for example, for a parent process to be aware of the termination of one of its children (<code>SIGCHILD</code>), or for asking a process to perform some predefined user-specific action (<code>SIGUSR1</code>). See the complete table of common signal&rsquo;s behaviours on the <a href="https://www.computerhope.com/unix/signals.htm"><em>computerhope</em>&nbsp;</a> article.</p>
+<p>It is worth mentioning that <em>signals</em> are crucial in any well-designed system which is intended to work over a multi-process architecture.</p>
 <p>You can see a list of all available signals on your system, by typing</p>
 <div class="highlight"><pre><span class="nv">$ </span><span class="nb">kill</span> -l
 
@@ -1166,17 +1162,16 @@ numbers might hypothetically vary in the future, or across systems):</p>
 </pre></div>
 
 <h2 id="a-first-experiment">A first experiment<a class="headerlink" href="#a-first-experiment" title="Permanent link"></a></h2>
-<p>Suppose that we have a &ldquo;<em>lazy</em>&rdquo; process which does not do another thing than sleeping for
-a while. Example:</p>
-<div class="highlight"><pre><span class="sd">&quot;&quot;&quot;FILE: lazy.py</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
-<span class="kn">import</span> <span class="nn">os</span>
+<p>Suppose that we have a &ldquo;<em>lazy</em>&rdquo; process which does not do another thing than sleeping for a while. Example:</p>
+<div class="highlight"><pre><span class="s">&quot;&quot;&quot;FILE: lazy.py</span>
+<span class="s">&quot;&quot;&quot;</span>
+<span class="n">from</span> <span class="n">time</span> <span class="n">import</span> <span class="n">sleep</span>
+<span class="n">import</span> <span class="n">os</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">&#39;I</span><span class="se">\&#39;</span><span class="s">m a very lazy process -.). Please, don</span><span class="se">\&#39;</span><span class="s">t disturb ...&#39;</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s">&#39;My PID = {os.getpid()}&#39;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="err">&#39;</span><span class="n">I</span><span class="err">\&#39;</span><span class="n">m</span> <span class="n">a</span> <span class="n">very</span> <span class="n">lazy</span> <span class="n">process</span> <span class="o">-</span><span class="p">.).</span> <span class="n">Please</span><span class="p">,</span> <span class="n">don</span><span class="err">\&#39;</span><span class="n">t</span> <span class="n">disturb</span> <span class="p">...</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">&quot;My PID = {os.getpid()}&quot;</span><span class="p">)</span>
 <span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="s">&#39;Lazy program says ... Bye !</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="n">print</span><span class="p">(</span><span class="err">&#39;</span><span class="n">Lazy</span> <span class="n">program</span> <span class="n">says</span> <span class="p">...</span> <span class="n">Bye</span> <span class="o">!</span><span class="err">\</span><span class="n">n</span><span class="err">&#39;</span><span class="p">)</span>
 </pre></div>
 
 <p>The interesting thing is that once our lazy process is sleeping and annoying our console, we can just stop it, by typing the shortcut 
@@ -1209,14 +1204,14 @@ the syntax:</p>
 <div class="highlight"><pre><span class="nb">kill</span> <span class="o">[</span>-s sigspec <span class="p">|</span> -n signum <span class="p">|</span> -sigspec<span class="o">]</span> jobspec 
 </pre></div>
 
-<p>where <code>jobspec</code> is the identification for the target process (including a &lsquo;%&rsquo; in front of the number). Namely:</p>
+<p>where <code>jobspec</code> is the identification for the target process (which you should pass including a &lsquo;%&rsquo; in front of the number). Namely:</p>
 <div class="highlight"><pre><span class="nv">$ </span>python lazy.py 
 I<span class="s1">&#39;m a very lazy process -.). Please, don&#39;</span>t disturb ...
 My <span class="nv">PID</span> <span class="o">=</span> 77330
 ^Z                               &lt;-- you press CTRL + Z
 <span class="o">[</span>1<span class="o">]</span>+  Stopped                 python lazy.py
 
-<span class="nv">$ </span><span class="nb">kill</span> -CONT %1                  &lt;-- this will resume process
+<span class="nv">$ </span><span class="nb">kill</span> -CONT %1                  &lt;-- this will resume the process
 <span class="nv">$ </span>Lazy program says ... Bye !    &lt;-- process is <span class="k">done</span>
 </pre></div>
 
@@ -1240,12 +1235,12 @@ My <span class="nv">PID</span> <span class="o">=</span> 77330
 </tr>
 </tbody>
 </table>
-<p>We can move a process to the background (pausing) or foreground (resuming) by using, respectively, the commands <code>fg</code> and <code>bg</code>. Example</p>
+<p>We can move a process to the background (pausing) or to the foreground (resuming) by using, respectively, the commands <code>fg</code> and <code>bg</code>. Example</p>
 <div class="highlight"><pre><span class="nb">fg</span> %1    .... puts the job <span class="nv">ID</span><span class="o">=</span><span class="m">1</span> into background state <span class="o">(</span>stop<span class="o">)</span>
 <span class="nb">bg</span> %1    .... puts the job <span class="nv">ID</span><span class="o">=</span><span class="m">1</span> into foreground state <span class="o">(</span>resume<span class="o">)</span>
 </pre></div>
 
-<p>You can switch a process back and forth between background and foreground 
+<p>You can switch a process back and forth between the background and foreground 
 as many times as you want, while the process is still alive and being
 owned by that terminal.</p>
 <p>Pressing <code>CTRL + Z</code> implicitly sends a <code>STOP</code> signal to a process, so it
@@ -1255,7 +1250,7 @@ I<span class="s1">&#39;m a very lazy process -.). Please, don&#39;</span>t distu
 My <span class="nv">PID</span> <span class="o">=</span> 77771
 ^Z                               &lt;-- you press CTRL + Z
 <span class="o">[</span>1<span class="o">]</span>+  Stopped                 python lazy.py
-<span class="nv">$ </span><span class="nb">fg</span> %1                          &lt;-- this will resume child, <span class="k">until</span> its completion
+<span class="nv">$ </span><span class="nb">fg</span> %1                          &lt;-- this will resume the child, <span class="k">until</span> its completion
 python lazy.py
 Lazy program says ... Bye !
 </pre></div>

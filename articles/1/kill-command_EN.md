@@ -174,7 +174,7 @@ the syntax:
 kill [-s sigspec | -n signum | -sigspec] jobspec 
 ```
 
-where `jobspec` is the identification for the target process (including a '%' in front of the number). Namely:
+where `jobspec` is the identification for the target process (which you should pass including a '%' in front of the number). Namely:
 
 ```bash
 $ python lazy.py 
@@ -183,7 +183,7 @@ My PID = 77330
 ^Z                               <-- you press CTRL + Z
 [1]+  Stopped                 python lazy.py
 
-$ kill -CONT %1                  <-- this will resume process
+$ kill -CONT %1                  <-- this will resume the process
 $ Lazy program says ... Bye !    <-- process is done
 ```
 
@@ -216,7 +216,7 @@ I'm a very lazy process -.). Please, don't disturb ...
 My PID = 77771
 ^Z                               <-- you press CTRL + Z
 [1]+  Stopped                 python lazy.py
-$ fg %1                          <-- this will resume child, until its completion
+$ fg %1                          <-- this will resume the child, until its completion
 python lazy.py
 Lazy program says ... Bye !
 ```
